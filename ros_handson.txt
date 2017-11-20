@@ -148,6 +148,8 @@ rospy.spin()
 ' > ~/ros_ws/src/this_tutorial/src/feedback.py
 chmod +x ~/ros_ws/src/this_tutorial/src/feedback.py
 
+# Notice that we don't need infinit loop to keep the node running now. And the frequency of publishing content in feedback_topic depends on the how frequent the subscriber calls the callback function.
+
 # Now, you can run both of them in two terminals:
 # Terminal 1:
 . ~/ros_ws/devel/setup.bash
