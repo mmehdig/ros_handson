@@ -82,6 +82,8 @@ chmod +x ~/ros_ws/src/this_tutorial/src/hello.py
 # this is how you can run it:
 rosrun this_tutorial hello.py
 
+# HINT: you can kill nodes with ctrl+c 
+
 # next step is to make it persistent.
 # in order make it a valid ros node we just need to assign it a name,
 # and tell the ros master.
@@ -97,7 +99,7 @@ while not rospy.is_shutdown():
 # now if you run it again it stays open:
 rosrun this_tutorial hello.py
 
-# you can check its info:
+# you can check its info, in another terminal:
 rosnode info \greeter
 
 # nodes alone cannot communicate with eachother,
@@ -118,9 +120,40 @@ while not rospy.is_shutdown():
 ' > ~/ros_ws/src/this_tutorial/src/hello.py
 
 # now, when we run this node there is no sign of input in this terminal.
-# in seperate terminal, we can check if the new topic is active.
-rostopic list 
-# then, if the /greeting_topic is in the list you can echo the content:
+rosrun this_tutorial hello.py
+
+# in a seperate terminal, we can check if the new topic is active.
+rostopic list
+
+# then, if the /greeting_topic is in the list, we can get the detailed
+# information about the publisher and its datatype:
+rostopic info /greeting_topic
+
+# we can echo the content that are published in the topic:
 rostopic echo /greeting_topic
 
+# similar to the echo action for rostopic, we can also write a node
+# which process the published content and then publishes a new materrial.
+echo '#!/usr/bin/env python
+import rospy
+from std_msgs.msg import String
+
+def callback(string):
+   pub.publish("I heared \"{0}\"".format(string.data))
+
+rospy.init_node("feedbacker")
+pub = rospy.Publisher("feedback_topic", String, queue_size=1)
+sub = rospy.Subscriber("greeting_topic", String, callback)
+rospy.spin()
+' > ~/ros_ws/src/this_tutorial/src/feedback.py
+chmod +x ~/ros_ws/src/this_tutorial/src/feedback.py
+
+# Now, you can run both of them in two terminals:
+# Terminal 1:
+. ~/ros_ws/devel/setup.bash
+rosrun this_tutorial hello.py
+
+# Terminal 2:
+. ~/ros_ws/devel/setup.bash
+rosrun this_tutorial feedback.py
 
