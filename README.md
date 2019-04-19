@@ -2,7 +2,10 @@
 A quick tutorial for ROS
 
 The introductory slides for ROS is available here:
-https://docs.google.com/presentation/d/1IMnimDSfmhllHSQcyfhACHd52AuHpX0Tv_qRDCdptJ0/edit?usp=sharing
+https://docs.google.com/presentation/d/19Jux1hVIHitNU_VemnwrXorucI4A1l9PiAs1C_yQmpY
+
+older version:
+https://docs.google.com/presentation/d/1IMnimDSfmhllHSQcyfhACHd52AuHpX0Tv_qRDCdptJ0
 
 
 # Step-by-step 
